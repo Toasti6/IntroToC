@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int main(void)  //main function
-(
-	printf("Hello World"); //display statement to the screem
+int main()  
+{
+	printf("Hello World"); 
 
-	return 0; function terminator
-)
+	return 0; 
+}
