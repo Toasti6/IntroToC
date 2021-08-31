@@ -16,15 +16,9 @@ int main(void)
 	printf("\nPlease enter the amount of fuel left in your tank (percentage):");
 	scanf("%d", &tankRemaining);
 
-	tankRemaining = tankRemaining/100; //tank remaining is converted to percentage pt1
+	totalCost = ((tankRemaining/100) - 1)*tankSize*gasPrice;
 
-	tankRemaining = 1 - tankRemaining; //pt 2
-
-	tankSize = tankSize*tankRemaining; //tank size converts to gas needed
-
-	totalCost = tankSize * gasPrice; // gas needed multiplied by price
-
-	printf("%f", totalCost);
+	printf("This shit finna cost $%.2f", totalCost);
 
 
 	return 0;
