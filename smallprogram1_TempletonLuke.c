@@ -31,10 +31,30 @@ int main(void)
 
 	reimbursementTotal = (Mileage2 - Mileage1) * reimbursementPerMile; //calculates total reimbursement
 
-	printf("\nYour total reimbursement is $%.2f\n",reimbursementTotal); //QUESTION 2 END
+	printf("Your total reimbursement is $%.2f\n",reimbursementTotal); //QUESTION 2 END
 
 
-	int hours;
+	int hours; //hours of downtime QUETSION 3 BEGIN
+	double minutes; //minutes of downtime
+	double t; 
+	double temp; //freezer temp
+
+	printf("\n\nWelcome to the freezer temperature estimator.\n");
+
+	printf("Please enter the amount of hours the freezer has been down:"); //user enters hours 
+	scanf("%d", &hours);
+
+	printf("Please enter the amount of minutes the freezer has been down:"); //user enters minutes
+	scanf("%lf", &minutes);
+
+	t = hours + (minutes / 60);
+
+	temp = ((t * t * 4) / t + 2) - 20; //Temp equation
+
+	printf("Your freezer is an estimated %.2f C\n", temp); //QUESTION 3 END
+
+
+
 
 	return 0;
 }
