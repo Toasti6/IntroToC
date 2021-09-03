@@ -1,8 +1,15 @@
 #include <stdio.h>
 
+//Luke Templeton
+//Dr. Steinberg
+//COP3223 Section 2
+//Small Program 1
+
 int main(void)
 {
-	int i; //counter QUESTION 1 BEGIN
+	//QUESTION 1
+
+	int i; //counter 
 
 	for (int i = 0; i < 4; ++i) //displays top of T 4 times
 	{
@@ -13,10 +20,11 @@ int main(void)
 	{
 
 		printf("\n              TTTTTTTTTTTTTTT");
-	} //QUESTION 1 END
+	} 
 
+	//QUESTION 2
 
-	double Mileage1; //Starting mileage QUESTION 2 BEGIN
+	double Mileage1; //Starting mileage 
 	double Mileage2; //Ending mileage
 	double reimbursementPerMile = 0.35; //Reimbursment per mile
 	double reimbursementTotal; //Total amount user recieves
@@ -31,10 +39,11 @@ int main(void)
 
 	reimbursementTotal = (Mileage2 - Mileage1) * reimbursementPerMile; //calculates total reimbursement
 
-	printf("Your total reimbursement is $%.2f\n",reimbursementTotal); //QUESTION 2 END
+	printf("Your total reimbursement is $%.2f\n",reimbursementTotal); 
 
+	//QUESTION 3
 
-	int hours; //hours of downtime QUETSION 3 BEGIN
+	int hours; //hours of downtime 
 	double minutes; //minutes of downtime
 	double t; 
 	double temp; //freezer temp
@@ -49,12 +58,26 @@ int main(void)
 
 	t = hours + (minutes / 60);
 
-	temp = ((t * t * 4) / t + 2) - 20; //Temp equation
+	temp = ((t * t * 4) / (t + 2)) - 20; //Temp equation
 
-	printf("Your freezer is an estimated %.2f C\n", temp); //QUESTION 3 END
+	printf("Your freezer is an estimated %.2f C\n", temp); 
 
+	//QUESTION 4
 
+	double pi = 3.14159; //pi constant 
+	double r; //radius
+	double d; //diameter
+	double c; //circumference
+	double a; //area
 
+	printf("\n\nPlease enter the radius of your circle:"); //user input for radius
+	scanf("%lf", &r);
+
+	d = r * 2; //equations for d, c, and a
+	c = pi * d;
+	a = pi * (r * r);
+
+	printf("Diameter:%.2f\nCircumference:%.2f\nArea:%.2f\n", d, c, a); 
 
 	return 0;
 }
