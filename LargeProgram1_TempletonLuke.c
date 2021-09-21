@@ -30,8 +30,6 @@ int main()
 
 		char answer = (rand() % (upper - lower + 1)) + lower; //sets limit for ascii value (65-90)
 
-		//printf("answer = %c\n", answer); use for debug
-
 		PlayRound(answer, game);
 
 	}
@@ -83,7 +81,7 @@ char GetGuess()
 	char guess;
 
 	printf("Enter your answer:"); //recieves guess from user
-	scanf("%c", &guess);
+	scanf(" %c", &guess);
 
 	guess = toupper(guess); //sets the users guess to captial letter
 
@@ -98,12 +96,12 @@ int CompareLetters(char guess, char answer)
 	{
 		result = 1;
 	}	
-	else if(guess < answer) //only allows uppercase leters
+	else if(guess < answer && 65 < guess) //only allows uppercase leters
 	{
 		printf("The answer is closer to Z!\n");
 		result = 0;
 	}
-	else if(guess > answer)
+	else if(guess > answer && 90 > guess)
 	{
 		printf("The answer is closer to A!\n");
 		result = 0;
@@ -122,7 +120,7 @@ void RoundResult(int result, char answer)
 {
 	if(result == 1) //if the answer is correct, the statement is printed
 	{
-		printf("Congrats, you won! The answer was %c\n", answer);
+		printf("Congrats, you won!\n");
 	}
 	else //if user is incorrect, the statement is printed
 	{
