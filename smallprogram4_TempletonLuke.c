@@ -8,6 +8,7 @@
 void Triangle(void);
 void AdvancedMenu(void);
 int Fibonacci(int n);
+void CountdownTwo(void);
 
 int main(void)
 {
@@ -15,14 +16,14 @@ int main(void)
 
 	AdvancedMenu(); //calls menu func
 
-	int n, result; //n for fibonacci
+	int n, result; //n and result for fibonacci
 
-	printf("\nEnter a value greater than or equal to 2:"); //prompt and input for fibonacci number
+	printf("\nEnter the amount of times you'd like to repeat the Fibnacci sequence:"); //prompt and input for fibonacci number
 	scanf(" %d", &n);
 
 	if(n >= 2)
 	{
-		int result = Fibonacci(n); //calls fibonacci if input is >= 2
+		result = Fibonacci(n); //calls fibonacci if input is >= 2
 	}
 	else
 	{
@@ -30,6 +31,8 @@ int main(void)
 	}
 
 	printf("Result = %d\n", result); //prints fibonacci result
+
+	CountdownTwo(); //calls contdown func
 
 	return 0;
 }
@@ -97,7 +100,7 @@ void AdvancedMenu(void)
 				printf("Yellow Button Pressed.\n");
 				break;
 			}
-			case 5:
+			default:
 			{
 				printf("Exit.\n");
 				break;
@@ -111,16 +114,31 @@ void AdvancedMenu(void)
 
 int Fibonacci(int n)
 {
-	int i, result, x, y;
+	int i, result; //counter and result
 
-	y = 1;
+	int y = 1; //keeps track of fibonacci sequence
+	int x = 1;
 
-	for(i = 1; i < n; i++)
-	{
-		result = x + y;
-		x = y;
-		y = result;
+	for(i = 0; i < n; i++) //repeats n times
+	{	
+		result = x + y; 
+		x = y; //assigns first number to second number
+		y = result; //assigns second number to previous result
 	}
-
 	return result;
+}
+
+void CountdownTwo(void)
+{
+	double cd; //countdown
+
+	printf("\nEnter a number to be counted down by 2:"); //prompts user for number being counted down by 2
+	scanf(" %lf", &cd);
+
+	while(cd > 0) //stays in loop if number has not been counted down all the way
+	{
+		cd = cd - 2; //counts down by 2
+
+		printf("%.0f\n", cd);
+	}
 }
