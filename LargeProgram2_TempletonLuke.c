@@ -86,24 +86,24 @@ void Purchase(double *balance)
 	double price; //
 	int option;
 
-	DisplayMenu();
+	DisplayMenu(); //displays menu for someone making a purchase
 
-	printf("Please select an option:\n");
+	printf("Please select an option:\n"); //prompts and recieves menu choice
 	printf(":");
 	scanf(" %d", &option);
 
 	switch(option)
 	{
-		case 1:
+		case 1: //if user selects 1, it notifies them
 			printf("You have selected Water Bottle. Total = $1.00\n");
-			price = water;
+			price = water; //sets price equal to the menu option
 			break;
 
-		case 2:
+		case 2: //if user selects 2, it notifies them
 			printf("You have selected Chips. Total = $2.13\n");
-			price = chips;
+			price = chips; //sets price equal to the menu option
 			break;
-		case 3:
+		case 3: //repeats
 			printf("You have selected Soda. Total = $1.12\n");
 			price = soda;
 			break;
@@ -129,43 +129,43 @@ void Purchase(double *balance)
 			break;
 	}
 
-	printf("Your account balance before transaciton: $%.2f\n", *balance);
+	printf("Your account balance before transaciton: $%.2f\n", *balance); //notifies user initial balance
 
-	Transaction(balance, price);
+	Transaction(balance, price); //calls transaction using the balance and price of selected option
 }
 
 void ViewAccount(double *balance)
 {
 	printf("****************************************************\n");
-	printf("Your current balance is $%.2f\n", *balance);
+	printf("Your current balance is $%.2f\n", *balance); //displays account balance
 }
 
 void Transaction(double *balance, double price)
 {
-	printf("\nBeginning transaction process...\n");
+	printf("\nBeginning transaction process...\n"); //notifies user transaction is starting and how much it is
 	printf("Billing $%.2f to your account...\n", price);
 
-	if(*balance >= price)
+	if(*balance >= price) //only executs if user has enough money
 	{
-		*balance -= price;
+		*balance -= price; //subtracts price from balance
 		printf("Transaction complete!\n");
-		printf("Your new balance is $%.2f\n", *balance);
+		printf("Your new balance is $%.2f\n", *balance); //notifies user
 	}
-	else
+	else //executes if user does not have enough money
 	{
-		printf("Insufficient funds.\n");
+		printf("Insufficient funds.\n"); //notifies user
 		printf("Please reload your account balance.\n");
-		Reload(balance);
+		Reload(balance); //calls reload because user does not have enough funds
 	}
 
 }
 
 void Reload(double *balance)
 {
-	int option;
+	int option; //menu optoin
 
 	printf("****************************************************\n");
-	printf("Please select an amount to reload.\n");
+	printf("Please select an amount to reload.\n"); //displays amounts user can increase by
 	printf("1. $1.00\n");
 	printf("2. $5.00\n");
 	printf("3. $10.00\n");
@@ -175,17 +175,17 @@ void Reload(double *balance)
 
 	switch(option)
 	{
-		case 1:
-			printf("Adding $1.00 to your balance...\n");
-			*balance += 1;
-			printf("Your new balance is $%.2f\n", *balance);
+		case 1: //menu option 1
+			printf("Adding $1.00 to your balance...\n"); //notifies user
+			*balance += 1; //adds to balance
+			printf("Your new balance is $%.2f\n", *balance); //displays new balance
 			break;
-		case 2:
-			printf("Adding $5.00 to your balance...\n");
-			*balance += 5;
-			printf("Your new balance is $%.2f\n", *balance);
+		case 2: //menu option 2
+			printf("Adding $5.00 to your balance...\n"); //notifies user
+			*balance += 5; //adds to balance
+			printf("Your new balance is $%.2f\n", *balance); //displays new balance
 			break;
-		case 3:
+		case 3: //repeats
 			printf("Adding $10.00 to your balance...\n");
 			*balance += 10;
 			printf("Your new balance is $%.2f\n", *balance);
