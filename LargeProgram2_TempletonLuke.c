@@ -77,7 +77,6 @@ void DisplayMenu()
 	printf("6. Cheese Pizza................................$6.24\n");
 	printf("7. Chocolate Brownie...........................$1.23\n");
 	printf("8. Chocolate Chip Cookie.......................$1.15\n");
-
 }	
 
 void Purchase(double *balance)
@@ -157,7 +156,6 @@ void Transaction(double *balance, double price)
 		printf("Please reload your account balance.\n");
 		Reload(balance); //calls reload because user does not have enough funds
 	}
-
 }
 
 void Reload(double *balance)
@@ -194,7 +192,4 @@ void Reload(double *balance)
 			printf("Cancelling reload...\n");
 			break;
 	}
-
-
-
 }
