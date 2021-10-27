@@ -5,11 +5,11 @@
 void meanMinMax(int meanArr[]);
 void organize(int meanArr[]);
 void duplicate(int meanArr[], int newArr[]);
-void locate();
+int locate(int meanArr[], int value, int size);
 
 int main(void)
 {
-	int meanArr[SIZE];
+	int meanArr[SIZE], newArr[SIZE];
 
 	for(int i = 0; i < SIZE; i++)
 	{
@@ -20,6 +20,33 @@ int main(void)
 	meanMinMax(meanArr);
 
 	organize(meanArr);
+
+	duplicate(meanArr, newArr);
+
+	printf("\n");
+
+	for(int i = 0; i < SIZE; i++)
+	{
+		printf("newArr[%d] = %d\n", i, newArr[i]);
+	}
+
+	int value, size;
+
+	printf("\nEnter a value to find:");
+	scanf(" %d", &value);
+
+	size = sizeof(meanArr)/sizeof(meanArr[0]);
+
+	int location = locate(meanArr, value, size);
+
+	if(location == -1)
+	{
+		printf("Value not found\n");
+	}
+	else
+	{
+		printf("Value was found at meanArr[%d]\n", location);
+	}
 
 	return 0;
 }
@@ -69,5 +96,32 @@ void organize(int meanArr[])
 	for(int i = 0; i < SIZE; i++)
 	{
 		printf("meanArr[%d] = %d\n", i, meanArr[i]);
+	}
+}
+
+void duplicate(int meanArr[], int newArr[])
+{
+	for(int i = 0; i < SIZE; i++)
+	{
+		newArr[i] = meanArr[i];
+	}
+}
+
+int locate(int meanArr[], int value, int size)
+{
+	int check = 0, i = 0;
+
+	for(i = 0; i < size; i++)
+	{
+		if(meanArr[i] == value)
+		{
+			return i;
+			check = 1;
+		}
+	}
+
+	if(check == 0)
+	{
+		i = -1;
 	}
 }
