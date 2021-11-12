@@ -10,6 +10,8 @@
 
 void deblank(char input[], char output[]);
 void pluralize(char plural[]);
+void fact(char output[]);
+int substring(char large[], char small[]);
 
 int main(void)
 {
@@ -19,7 +21,21 @@ int main(void)
 
 	char plural[SIZE];
 
-	pluralize(plural);	
+	pluralize(plural);
+
+	fact(output);
+
+	char small[SIZE], large[SIZE];
+
+	printf("\nEnter a word:");
+	fgets(large, SIZE, stdin);
+
+	printf("\nEnter a smaller word:");
+	fgets(small, SIZE, stdin);
+
+	int result = substring(large, small);
+
+	printf("The address with a matching character is large[%d]\n", result);
 
 	return 0;
 }
@@ -44,25 +60,56 @@ void deblank(char input[], char output[])
 void pluralize(char plural[])
 {
 	printf("\nEnter a word to be pluralized:");
-	fgets(plural, SIZE, stdin);
+	fgets(plural, SIZE, stdin); //prompts and recieves user input
 
-	int l = strlen(plural);
+	int l = strlen(plural); //finds length of string
 
-	if(plural[l - 2] == 'y')
+	if(plural[l - 2] == 'y') //executes if last letter is y
 	{
-		plural[l - 2] = 'i';
+		plural[l - 2] = 'i'; //changes the ending to its plural form
 		plural[l - 1] = 'e';
 		plural[l] = 's';
 	}
-	else if(plural[l - 3] == 's'|| plural[l - 3] == 'c' && plural[l - 2] == 'h' || plural[l - 3] == 's' && plural[l - 2] == 'h')
+	else if(plural[l - 3] == 's'|| plural[l - 3] == 'c' && plural[l - 2] == 'h' || plural[l - 3] == 's' && plural[l - 2] == 'h') //executes if last letters are s, ch, or sh
 	{
-		plural[l - 1] = 'e';
+		plural[l - 1] = 'e'; //changes the ending to plural form
 		plural[l] = 's';
 	}
 	else
 	{
-		plural[l - 1] = 's';
+		plural[l - 1] = 's'; //changes the ending to plural form
 	}
 
-	printf("Your pluralized word is: %s", plural);
+	printf("Your pluralized word is: %s", plural); //prints new word
+}
+
+void fact(char output[])
+{
+	char letter[2]; //new string that will contain first letter
+
+	strncpy(letter, output, 1); //copies first letter
+
+	printf("\n%s starts with %s.", output, letter);
+}
+
+int substring(char large[], char small[])
+{
+	int result;
+	int l = strlen(large);
+	int s = strlen(small);
+
+	for(int i = 0; i < (l - 1); i++)
+	{
+		for(int j = 0; j < (s - 1); j++)
+		{
+			if(large[i] == small[j])
+			{
+				printf("hello\n");
+				result = i;
+				i = l;
+				j = s;
+			}
+		}
+	}
+	return result;
 }
