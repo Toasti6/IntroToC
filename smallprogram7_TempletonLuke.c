@@ -28,14 +28,14 @@ int main(void)
 	char small[SIZE], large[SIZE];
 
 	printf("\nEnter a word:");
-	fgets(large, SIZE, stdin);
+	fgets(large, SIZE, stdin); //prompts and recieves large string
 
 	printf("\nEnter a smaller word:");
-	fgets(small, SIZE, stdin);
+	fgets(small, SIZE, stdin); //prompts and recieves small string
 
-	int result = substring(large, small);
+	int result = substring(large, small); //assigns result to address
 
-	printf("The address with a matching character is large[%d]\n", result);
+	printf("The address with a matching character is large[%d]\n", result); //prints address
 
 	return 0;
 }
@@ -95,21 +95,20 @@ void fact(char output[])
 int substring(char large[], char small[])
 {
 	int result;
-	int l = strlen(large);
+	int l = strlen(large); //string lengths of each word given
 	int s = strlen(small);
 
-	for(int i = 0; i < (l - 1); i++)
+	for(int i = 0; i < (l - 1); i++) //traverses large string
 	{
-		for(int j = 0; j < (s - 1); j++)
+		for(int j = 0; j < (s - 1); j++) //traverses small string
 		{
-			if(large[i] == small[j])
+			if(large[i] == small[j]) //executes if char is the same
 			{
-				printf("hello\n");
-				result = i;
+				result = i; //assigns result to address
 				i = l;
 				j = s;
 			}
 		}
 	}
-	return result;
+	return result; //returns address
 }
