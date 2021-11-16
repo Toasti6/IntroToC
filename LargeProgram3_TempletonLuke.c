@@ -73,7 +73,7 @@ void maskWord (char starword[], int size)
 		starword[i] = '*';
 	}
 
-	starword[strlen(starword) - 1] = '\0';
+	starword[size] = '\0';
 }
 
 int playRound(char starword[], char answer[])
