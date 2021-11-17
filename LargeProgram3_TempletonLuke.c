@@ -18,159 +18,169 @@ void playAgain(int *play); //ask user if to play again. 1 is yes 2 is no
 
 int main(void)
 {
-	rules();
+	rules(); //displays rules once at startup
 
 	char answer[SIZE], starword[SIZE];
-	int p = 1;
+	int p = 1; //initializes p to 1 to play
 	int *play;
 
-	play = &p;
+	play = &p; //pointer is assigned to p
 
 	FILE *inp;
-	inp = fopen("words.txt", "r");
+	inp = fopen("words.txt", "r"); //opens word bank file
 
-	while(*play == 1)
+
+	while(*play == 1) //executes if user chooses to play again
 	{
-		fscanf(inp, " %s\n", &answer[0]);
-		int size = strlen(answer);
-		answer[size] = '\0';
+		fscanf(inp, " %s\n", &answer[0]); //scans word on line and moves to next line
+		int size = strlen(answer); //size is the length of the answer
+		answer[size] = '\0'; //so no funny characters pop up
 
-		maskWord(starword, size);
+		maskWord(starword, size); //masks word using size
 
-		int win = playRound(starword, answer);
+		int win = playRound(starword, answer); //returns win condition
 
-		if(win == 1)
+		if(win == 1) //executes if user won
 		{
+			printf("====================================================\n");
 			printf("Congrats, you won!\n");
 		}
-		else if(win == 0)
+		else if(win == 0) //executes if user lost
 		{
+			printf("====================================================\n");
 			printf("You used all your strikes!\n");
 			printf("The answer was: %s\n", answer);
 		}
 
-		playAgain(play);
+		playAgain(play); //asks to play again
 	}
 
-	fclose(inp);
+	fclose(inp); //closes file
 	return 0;
 }
 
 void rules(void)
 {
-	printf("========================================\n");
+	printf("====================================================\n");
 	printf("		Welcome to hangman! \n");
-	printf(" Play this as you would play a regular\n"); //REDO THIS
-	printf("  hangman game. The asteriks represent\n");
-	printf(" the letters you have not guessed yet.\n");
-	printf("========================================\n");
+	printf(" The goal of the game is to guess the word provided\n"); //rules
+	printf("    The word provided is repesented by stars\n");
+	printf("  If you guess a letter correctly, it is revealed\n");
+	printf("   If you guess a letter incorrectly, you recieve\n");
+	printf("		    a strike.\n");
+	printf("	 6 strikes will result in a loss\n");
+	printf("====================================================\n");
 }
 
 void maskWord (char starword[], int size)
 {
-	for(int i = 0; i < size; i++)
+	for(int i = 0; i < size; i++) //traverses starword array with max size times
 	{
-		starword[i] = '*';
+		starword[i] = '*'; //sets each character in answer to an *
 	}
 
-	starword[size] = '\0';
+	starword[size] = '\0'; //no funny characters
 }
 
 int playRound(char starword[], char answer[])
 {
-	int win, count, star, guessWin, strikes = 0;
+	int win = 0; //win status
+	int count = 0; //keeps track of round count for displaying guessed chars
+	int star = 0; //used in determining if user won
+	int guessWin = 0; //0 if user guesses incorrectly
+	int strikes = 0; //resets game at beginning of round
 	char userguess;
 	char guessTotal[SIZE] = "\0";
 
 	printf("\nWelcome to the round! Good luck!\n\n");
 
-	while(strikes < STRIKES)
+	while(strikes < STRIKES) //executes if user hasn't gone over strike limit
 	{
-		printf("========================================\n");
-		printf("You currently have %d strikes.\n", strikes);
-		printf("Letter(s) you have guessed: %s\n", guessTotal);
-		printf("\n %s\n", starword);
-		printf("Enter your guess: ");
+		printf("====================================================\n");
+		printf("You currently have %d strikes.\n", strikes); //informs user of strike status
+		printf("Letter(s) you have guessed: %s\n", guessTotal); //lists guessed letters
+		printf("\n %s\n", starword); //displays stars
+		printf("Enter your guess: "); //prompts and recieves guess
 		scanf(" %c", &userguess);
 
-		userguess = tolower(userguess);
+		userguess = tolower(userguess); //lowercase only
 
-		if(userguess >= 97 && userguess <= 122)
+		if(userguess >= 97 && userguess <= 122) //executes if lowercase 
 		{
 			for(int j = 0; j < SIZE; j++)
 			{
-				guessWin = 0;
-				if(answer[j] == userguess)
+				guessWin = 0; //resets guess correct status
+				if(answer[j] == userguess) //executes if user guess correctly
 				{
-					printf("You guessed correctly!\n");
+					printf("\nThe letter %c is in the word\n\n", userguess);
 
 					updateStarWord(starword, answer, userguess);
 
-					guessWin = 1;
-					j = SIZE;
+					guessWin = 1; //user won the guess
+					j = SIZE; //exits for loop
 				}
 			}
-			if(guessWin == 0)
+			if(guessWin == 0) //default condition, user did not win the guess
 			{
-			printf("You guessed incorrectly!\n");
-			strikes++;
+			printf("\nThe letter %c is not in the word\n\n", userguess);
+			strikes++; //adds strike to total
 			}
 
 		}
-		else
+		else //if user does not enter lowercase
 		{
-			printf("Invalid input, please enter a valid character.\n");
+			printf("Invalid input, please try again.\n\n");
 		}
 
-		star = 0;
+		star = 0; //resets star counter every guess
 		for(int j = 0; j < SIZE; j++)
 		{
-			if(starword[j] == '*')
+			if(starword[j] == '*') //executes the amount of times there is a * in the starword[]
 			{
-				star++;
+				star++; //adds one count to star
 			}
 		}
 		
-		if(star == 0)
+		if(star == 0) //executes if there are no *'s in starword[]
 		{
-			win = 1;
-			break;
+			win = 1; //user win
+			break; //breaks while loop
 		}
-		else
+		else //executes if no *'s in starword[]
 		{
-			win = 0;
+			win = 0; //user lost or has not won yet
 		}
 
-		guessTotal[count] = userguess;
+		guessTotal[count] = userguess; //adds to guessed char list
 		guessTotal[count + 1] = '\0';
-		count++;
+		count++; //increases round count
 	}
 	return win;
 }
 
 int occurancesInWord(char userguess, char answer[])
 {
-	int occurances = 0;
+	int occurances = 0; //resets occurances of word
 
-	for(int i = 0; i < SIZE; i++)
+	for(int i = 0; i < SIZE; i++) //traverses array
 	{
-		if(answer[i] == userguess)
+		if(answer[i] == userguess) //executes for every occurance in answer[]
 		{
-			occurances++;
+			occurances++; //adds to occurance counter
 		}
 	}
-	return occurances;
+	return occurances; //returns amount of occurances
 }
 
 void updateStarWord(char starword[], char answer[], char userguess)
 {
 	int occurances = occurancesInWord(userguess, answer);
 
-	for(int i = 0; i < SIZE; i++)
+	for(int i = 0; i < SIZE; i++) //traverses array
 	{
-		if(answer[i] == userguess)
+		if(answer[i] == userguess) //executes if the user guesses correctly and for every occurance
 		{
-			starword[i] = answer[i];
+			starword[i] = answer[i]; //sets starword * to char in answer[]
 		}
 	}
 }
@@ -178,6 +188,14 @@ void updateStarWord(char starword[], char answer[], char userguess)
 void playAgain(int *play)
 {
 	printf("Would you like to play again?\n");
-	printf("1 for yes, 2 for no: ");
+	printf("1 for yes, 2 for no: "); //prompts and recieves users desire to replay
 	scanf(" %d", play);
+	printf("\n");
+
+	while(*play > 2 || *play < 1) //executes if user does not enter 1 or 2
+	{
+		printf("Invalid input. Try again.\n");
+		playAgain(play); //calls playAgain(again)
+	}
+
 }
