@@ -24,35 +24,49 @@ int main(void)
 	int p = 1; //initializes p to 1 to play
 	int *play;
 
+	double status; //to determine if eof is reached
+	int inputStatus;
+
 	play = &p; //pointer is assigned to p
 
 	FILE *inp;
 	inp = fopen("words.txt", "r"); //opens word bank file
 
+	inputStatus = fscanf(inp, "%lf", &status); //returns -1 is eof is reached
 
-	while(*play == 1) //executes if user chooses to play again
+	while(inputStatus != -1) //quits when eof is reached
 	{
-		fscanf(inp, " %s\n", &answer[0]); //scans word on line and moves to next line
-		int size = strlen(answer); //size is the length of the answer
-		answer[size] = '\0'; //so no funny characters pop up
-
-		maskWord(starword, size); //masks word using size
-
-		int win = playRound(starword, answer); //returns win condition
-
-		if(win == 1) //executes if user won
+		while(*play == 1) //executes if user chooses to play again
 		{
-			printf("====================================================\n");
-			printf("Congrats, you won!\n");
-		}
-		else if(win == 0) //executes if user lost
-		{
-			printf("====================================================\n");
-			printf("You used all your strikes!\n");
-			printf("The answer was: %s\n", answer);
-		}
+			fscanf(inp, " %s\n", &answer[0]); //scans word on line and moves to next line
+			int size = strlen(answer); //size is the length of the answer
+			answer[size] = '\0'; //so no funny characters pop up
 
-		playAgain(play); //asks to play again
+			maskWord(starword, size); //masks word using size
+
+			int win = playRound(starword, answer); //returns win condition
+
+			if(win == 1) //executes if user won
+			{
+				printf("====================================================\n");
+				printf("Congrats, you won!\n");
+			}
+			else if(win == 0) //executes if user lost
+			{
+				printf("====================================================\n");
+				printf("You used all your strikes!\n");
+				printf("The answer was: %s\n", answer);
+			}
+
+			inputStatus = fscanf(inp, "%lf", &status); //reassigns value every loop
+			if(inputStatus == -1)
+			{
+				break; //quits if eof is reached
+				printf("\n\nYou went through all available words!\n\n");
+			}
+
+			playAgain(play); //asks to play again
+		}
 	}
 
 	fclose(inp); //closes file
