@@ -160,27 +160,31 @@ int playRound(char starword[], char answer[])
 
 int occurancesInWord(char userguess, char answer[])
 {
-	int occurances = 0; //resets occurances of word
+	int occurences = 0; //resets occurences of word
 
 	for(int i = 0; i < SIZE; i++) //traverses array
 	{
 		if(answer[i] == userguess) //executes for every occurance in answer[]
 		{
-			occurances++; //adds to occurance counter
+			occurences++; //adds to occurance counter
 		}
 	}
-	return occurances; //returns amount of occurances
+	return occurences; //returns amount of occurences
 }
 
 void updateStarWord(char starword[], char answer[], char userguess)
 {
-	int occurances = occurancesInWord(userguess, answer);
+	int occurences = occurancesInWord(userguess, answer); //retrieves amount of occurences
 
-	for(int i = 0; i < SIZE; i++) //traverses array
+	while(occurences > 0) //only executes if there are occurences
 	{
-		if(answer[i] == userguess) //executes if the user guesses correctly and for every occurance
+		for(int i = 0; i < SIZE; i++) //traverses array
 		{
-			starword[i] = answer[i]; //sets starword * to char in answer[]
+			if(answer[i] == userguess) //executes if the user guesses correctly and for every occurance
+			{
+				starword[i] = answer[i]; //sets starword * to char in answer[]
+				occurences--;
+			}
 		}
 	}
 }
