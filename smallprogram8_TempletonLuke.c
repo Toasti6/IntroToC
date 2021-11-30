@@ -56,7 +56,7 @@ int main(void)
                 printf("Select an index of record to remove...\n");
                 int index;
                 scanf("%d", &index);
-                //currentsize = removerecord(myarray,currentsize,maxsize,index);
+                currentsize = removerecord(myarray,currentsize,maxsize,index);
                 break;
 
             case 4:
@@ -135,7 +135,19 @@ record_t *doubleit(record_t *arr, int size)
 
 int removerecord(record_t *arr, int size, int maxsize, int index)
 {
+	if(index < 0 || index > size)
+	{
+		printf("Not a valid index.\n");
+		return size;
+	}
+	else
+	{
+		for(int i = index; i < size; i++)
+		{
+			arr[i] = arr[i + 1];
+		}
 
-
+		realloc(arr, size - 1);
+	}
 
 }
