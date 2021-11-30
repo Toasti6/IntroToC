@@ -135,6 +135,7 @@ record_t *doubleit(record_t *arr, int size)
 
 int removerecord(record_t *arr, int size, int maxsize, int index)
 {
+	printf("size = %d, maxsize = %d\n", size, maxsize);
 	if(index < 0 || index > size)
 	{
 		printf("Not a valid index.\n");
@@ -147,7 +148,8 @@ int removerecord(record_t *arr, int size, int maxsize, int index)
 			arr[i] = arr[i + 1];
 		}
 
-		realloc(arr, size - 1);
+		int newsize = size - 1;
+		realloc(arr, newsize);
 	}
 
 }
